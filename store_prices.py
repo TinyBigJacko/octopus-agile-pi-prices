@@ -10,7 +10,7 @@ import time
 # though it only runs once a day so it's not exactly important.
 def insertVariableIntoTable(year, month, day, hour, segment, price):
 	try:
-		sqliteConnection = sqlite3.connect('octoprice.sqlite')
+		sqliteConnection = sqlite3.connect('/home/pi/octopus-agile-pi-prices/octoprice.sqlite')
 		cursor = sqliteConnection.cursor()
 		print("Connected to SQLite")
 

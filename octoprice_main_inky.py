@@ -15,7 +15,7 @@ from font_fredoka_one import FredokaOne  # this is the font we're currently usin
 from PIL import Image, ImageFont, ImageDraw
 
 import sqlite3
-conn = sqlite3.connect('octoprice.sqlite')
+conn = sqlite3.connect('/home/pi/octopus-agile-pi-prices/octoprice.sqlite')
 cur = conn.cursor()
 import datetime
 import pytz

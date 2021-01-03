@@ -9,7 +9,7 @@ import dothat.lcd as lcd
 import dothat.backlight as backlight
 
 import sqlite3
-conn = sqlite3.connect('octoprice.sqlite')
+conn = sqlite3.connect('/home/pi/octopus-agile-pi-prices/octoprice.sqlite')
 cur = conn.cursor()
 import datetime
 import requests

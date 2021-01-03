@@ -2,7 +2,7 @@
 
 import sqlite3
 
-conn = sqlite3.connect('octoprice.sqlite')
+conn = sqlite3.connect('/home/pi/octopus-agile-pi-prices/octoprice.sqlite')
 
 cursor = conn.cursor()
 # price data is split into half hour buckets;  so 5am is hour = 5, segment = 0, 
