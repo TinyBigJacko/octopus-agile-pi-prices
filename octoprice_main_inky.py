@@ -21,6 +21,11 @@ import datetime
 import pytz
 import time
 
+#code to round down to nearest interval
+def floor_dt(dt, interval):
+	replace = (dt.minute // interval)*interval
+	return dt.replace(minute = replace, second=0, microsecond=0)
+
 ##  -- Display type = red. Change below if you have the yellow
 inky_display = InkyPHAT("red")
 ## --   ----------------------------------------------------
@@ -42,6 +47,7 @@ if the_now.minute < 30:
 else:
 	the_segment = 1
 
+print (the_now_local)
 print ('segment:')
 print (the_segment)
 
@@ -59,7 +65,7 @@ current_price = row[5] # literally this is hardcoded tuple. DONT ADD ANY EXTRA F
 
 # Find Next Price
 # find current time and convert to year month day etc
-the_now = datetime.datetime.now(datetime.timezone.utc)
+#the_now = datetime.datetime.now(datetime.timezone.utc)
 now_plus_10 = the_now + datetime.timedelta(minutes = 30)
 the_year = now_plus_10.year
 the_month = now_plus_10.month
@@ -89,7 +95,7 @@ next_price = row[5] # literally this is peak tuple. DONT ADD ANY EXTRA FIELDS TO
 
 # Find Next+1 Price
 # find current time and convert to year month day etc
-the_now = datetime.datetime.now(datetime.timezone.utc)
+#the_now = datetime.datetime.now(datetime.timezone.utc)
 now_plus_10 = the_now + datetime.timedelta(minutes = 60)
 the_year = now_plus_10.year
 the_month = now_plus_10.month
@@ -100,7 +106,7 @@ if now_plus_10.minute < 30:
 else:
 	the_segment = 1
 
-print ('segment:')
+print ('segment+2:')
 print (the_segment)
 
 # select from db where record = ^
@@ -121,7 +127,7 @@ nextp1_price = row[5] # literally this is peak tuple. DONT ADD ANY EXTRA FIELDS 
 
 # Find Next+2 Price
 # find current time and convert to year month day etc
-the_now = datetime.datetime.now(datetime.timezone.utc)
+#the_now = datetime.datetime.now(datetime.timezone.utc)
 now_plus_10 = the_now + datetime.timedelta(minutes = 90)
 the_year = now_plus_10.year
 the_month = now_plus_10.month
@@ -132,7 +138,7 @@ if now_plus_10.minute < 30:
 else:
 	the_segment = 1
 
-print ('segment:')
+print ('segment+3:')
 print (the_segment)
 
 # select from db where record == the above
@@ -146,11 +152,11 @@ nextp2_price = row[5] # literally this is peak tuple. DONT ADD ANY EXTRA FIELDS 
 
 
 
-# attempt to make an list of the next 42 hours of values
+# attempt to make a list of the next 24 hours of values
 prices = []
 for offset in range(0, 48):  ##24h = 48 segments
 	min_offset = 30 * offset
-	the_now = datetime.datetime.now(datetime.timezone.utc)
+#	the_now = datetime.datetime.now(datetime.timezone.utc)
 	now_plus_offset = the_now + datetime.timedelta(minutes=min_offset)
 	the_year = now_plus_offset.year
 	the_month = now_plus_offset.month
@@ -182,7 +188,8 @@ w, h = font.getsize(message)
 x = 0
 y = -5
 
-if (current_price > 14.8):
+exp_thresh = 15.29 #set your own 'expensive' threshold here
+if (current_price > exp_thresh): 
 	draw.text((x, y), message, inky_display.RED, font)
 else:
 	draw.text((x, y), message, inky_display.BLACK, font)
@@ -197,7 +204,7 @@ font = ImageFont.truetype(FredokaOne, 20)
 w2, h2 = font.getsize(message)
 x = right_column
 y = 0
-if (next_price > 14.8):
+if (next_price > exp_thresh):
 	draw.text((x,y), message, inky_display.RED, font)
 else:
 	draw.text((x, y), message, inky_display.BLACK, font)
@@ -209,7 +216,7 @@ w3, h3 = font.getsize(message)
 x = right_column
 y = 20
 
-if (nextp1_price > 14.8):
+if (nextp1_price > exp_thresh):
 	draw.text((x,y), message, inky_display.RED, font)
 else:
 	draw.text((x, y), message, inky_display.BLACK, font)
@@ -222,13 +229,13 @@ w3, h3 = font.getsize(message)
 x = right_column
 y = 40
 
-if (nextp2_price > 14.8):
+if (nextp2_price > exp_thresh):
 	draw.text((x,y), message, inky_display.RED, font)
 else:
 	draw.text((x, y), message, inky_display.BLACK, font)
 
 
-pixels_per_h = 2  # how many pixels 1p is worth
+pixels_per_h = 1  # how many pixels 1p is worth
 pixels_per_w = 3  # how many pixels 1/2 hour is worth
 chart_base_loc = 104  # location of the bottom of the chart on screen in pixels
 #chart_base_loc = 85  # location of the bottom of the chart on screen in pixels
@@ -274,14 +281,11 @@ msg = "in:"+str(minterval)+"hrs"
 draw.text((right_column,75), msg, inky_display.BLACK, font)
 
 # and convert that to an actual time
-# note that this next time will not give you an exact half hour if you don't run this at an exact half hour eg cron
-# because it's literally just adding n * 30 mins!
-# could in future add some code to round to 30 mins increments but it works for now.
-
-
 
 min_offset = prices.index(lowest_price_next_24h) * 30
-time_of_cheapest = the_now_local + datetime.timedelta(minutes=min_offset)
+#time_of_cheapest = the_now_local + datetime.timedelta(minutes=min_offset)
+print ("min_offset", str(min_offset))
+time_of_cheapest = floor_dt(datetime.datetime.now() + datetime.timedelta(minutes=min_offset),30)
 print("cheapest at " + str(time_of_cheapest))
 print("which is: "+ str(time_of_cheapest.time())[0:5])
 time_of_cheapest_formatted = "at " + (str(time_of_cheapest.time())[0:5])
@@ -289,5 +293,6 @@ font = ImageFont.truetype(FredokaOne, 15)
 draw.text((right_column,90), time_of_cheapest_formatted, inky_display.BLACK, font)
 
 # render the actual image onto the display
+img=img.rotate(180) # rotate image 180 degrees
 inky_display.set_image(img)
 inky_display.show()
