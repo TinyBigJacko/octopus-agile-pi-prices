@@ -1,5 +1,5 @@
 # this is the one to run daily just after 4pm ish when the new prices come in
-agile_tariff_code = 'E-1R-AGILE-18-02-21-L'  # This changes by area so choose the right one (displayed in your octopus dashboard). Codes end in A->P
+agile_tariff_code = 'E-1R-AGILE-22-08-31-L'  # This changes by area so choose the right one (displayed in your octopus dashboard). Codes end in A->P
 
 import sqlite3
 import datetime
