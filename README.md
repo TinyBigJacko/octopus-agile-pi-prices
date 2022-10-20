@@ -79,6 +79,4 @@ Another NOTE: I tried to make this code **simple** and readable. If you see any 
 # Final note
 If you do appreciate this code and are thinking about joining octopus, I'll leave my referral link here https://share.octopus.energy/rust-heron-863 - We both get £50 which is pretty spectacular. 
 
-# Addendum by TinyBigJacko 01/Jan/2021
-Pufferfish's code altered to incoporporate daily-price fetch failure handling and retries, based almost entirely on Plasma-Tech's work. Thank you, both.
-My own cheeky Octopus referral code is https://share.octopus.energy/grape-cliff-482
+Also if you're into home automation or random tinkering then subscribe to my youtube stuff here -> https://www.youtube.com/channel/UCl_uGYJe9KW9fJWBMq1A9kw
