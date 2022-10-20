@@ -157,6 +157,9 @@ nextp2_price = row[5] # literally this is peak tuple. DONT ADD ANY EXTRA FIELDS 
 
 # attempt to make a list of the next 24 hours of values
 prices = []
+
+exp_thresh = 35.00 #set your own 'expensive' threshold here
+
 for offset in range(0, 48):  ##24h = 48 segments
 	min_offset = 30 * offset
 #	the_now = datetime.datetime.now(datetime.timezone.utc)
@@ -189,7 +192,7 @@ if (inky_display.WIDTH == 212): #low res display
 	x = 0
 	y = -5
 
-	if (current_price > 14.8):
+	if (current_price > exp_thresh):
 		draw.text((x, y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -202,7 +205,7 @@ if (inky_display.WIDTH == 212): #low res display
 	w2, h2 = font.getsize(message)
 	x = right_column
 	y = 0
-	if (next_price > 14.8):
+	if (next_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -214,7 +217,7 @@ if (inky_display.WIDTH == 212): #low res display
 	x = right_column
 	y = 20
 
-	if (nextp1_price > 14.8):
+	if (nextp1_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -226,7 +229,7 @@ if (inky_display.WIDTH == 212): #low res display
 	x = right_column
 	y = 40
 
-	if (nextp2_price > 14.8):
+	if (nextp2_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -299,7 +302,7 @@ else: #high res display
 	x = 0
 	y = -10
 
-	if (current_price > 14.8):
+	if (current_price > exp_thresh):
 		draw.text((x, y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -312,7 +315,7 @@ else: #high res display
 	w2, h2 = font.getsize(message)
 	x = right_column
 	y = 0
-	if (next_price > 14.8):
+	if (next_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -324,7 +327,7 @@ else: #high res display
 	x = right_column
 	y = 23
 
-	if (nextp1_price > 14.8):
+	if (nextp1_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)
@@ -336,7 +339,7 @@ else: #high res display
 	x = right_column
 	y = 46
 
-	if (nextp2_price > 14.8):
+	if (nextp2_price > exp_thresh):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.BLACK, font)

@@ -17,7 +17,7 @@ import time
 
 # hopefully these won't ever change
 AGILE_TARIFF_BASE = (
-  'https://api.octopus.energy/v1/products/AGILE-18-02-21/electricity-tariffs/E-1R-AGILE-18-02-21-')
+  'https://api.octopus.energy/v1/products/AGILE-22-08-31/electricity-tariffs/E-1R-AGILE-22-08-31-')
 AGILE_TARIFF_TAIL = "/standard-unit-rates/"
 
 MAX_RETRIES = 15 # give up once we've tried this many times to get the prices from the API
