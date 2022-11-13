@@ -26,7 +26,7 @@ except TypeError:
 
 try:
     # connect to the database in rw mode so we can catch the error if it doesn't exist
-    DB_URI = 'file:{}?mode=rw'.format(pathname2url('agileprices.sqlite'))
+    DB_URI = 'file:{}?mode=rw'.format(pathname2url('/home/pi/octopus-agile-pi-prices/agileprices.sqlite'))
     conn = sqlite3.connect(DB_URI, uri=True)
     cur = conn.cursor()
     print('Connected to database...')

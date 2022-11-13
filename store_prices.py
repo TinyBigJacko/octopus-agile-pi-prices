@@ -202,7 +202,7 @@ data_rows = get_prices_from_api(AGILE_TARIFF_URI)
 
 try:
     # connect to the database in rw mode so we can catch the error if it doesn't exist
-    DB_URI = 'file:{}?mode=rw'.format(pathname2url('agileprices.sqlite'))
+    DB_URI = 'file:{}?mode=rw'.format(pathname2url('/home/pi/octopus-agile-pi-prices/octopus-agileprices.sqlite'))
     conn = sqlite3.connect(DB_URI, uri=True)
     cursor = conn.cursor()
     print('Connected to database...')
@@ -210,7 +210,7 @@ try:
 except sqlite3.OperationalError:
     # handle missing database case
     print('No database found. Creating a new one...')
-    conn = sqlite3.connect('agileprices.sqlite')
+    conn = sqlite3.connect('/home/pi/octopus-agile-pi-prices/agileprices.sqlite')
     cursor = conn.cursor()
     # UNIQUE constraint prevents duplication of data on multiple runs of this script
     # ON CONFLICT FAIL allows us to count how many times this happens
